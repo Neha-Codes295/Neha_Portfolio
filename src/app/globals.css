@@ -3,25 +3,149 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8f8f7;
+  --foreground: #0a0a0a;
+  --muted: #666666;
+  --muted-bg: #ececea;
+  --surface: #ffffff;
+  --border: #e2e2df;
+  --accent: #4338ca;
+  --accent-muted: #6366f1;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  --background: #050505;
+  --foreground: #f4f4f5;
+  --muted: #a1a1aa;
+  --muted-bg: #121214;
+  --surface: #0a0a0c;
+  --border: #1f1f23;
+  --accent: #a5b4fc;
+  --accent-muted: #818cf8;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer base {
+  ::selection {
+    background: color-mix(in srgb, var(--accent) 22%, transparent);
+    color: var(--foreground);
+  }
+}
+
+@layer components {
+  .surface-card {
+    @apply rounded-2xl border border-border backdrop-blur-md transition-all duration-300 ease-out;
+    background-color: color-mix(in srgb, var(--surface) 92%, transparent);
+    box-shadow:
+      0 0 0 1px rgb(0 0 0 / 0.02),
+      0 2px 16px -4px rgb(0 0 0 / 0.06);
+  }
+
+  .dark .surface-card {
+    background-color: color-mix(in srgb, var(--surface) 78%, var(--background));
+    box-shadow:
+      0 0 0 1px rgb(255 255 255 / 0.04),
+      0 8px 40px -12px rgb(0 0 0 / 0.55);
+  }
+
+  .surface-card:hover {
+    border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+    box-shadow:
+      0 0 0 1px rgb(0 0 0 / 0.03),
+      0 12px 40px -8px rgb(0 0 0 / 0.1);
+  }
+
+  .dark .surface-card:hover {
+    box-shadow:
+      0 0 0 1px rgb(255 255 255 / 0.06),
+      0 20px 50px -12px rgb(0 0 0 / 0.65);
+  }
+
+  .section-muted {
+    @apply border-t border-border;
+    background: color-mix(in srgb, var(--muted-bg) 42%, var(--background));
+  }
+
+  .dark .section-muted {
+    background: color-mix(in srgb, var(--muted-bg) 22%, var(--background));
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-full bg-foreground px-7 py-3.5 text-sm font-semibold tracking-tight text-background shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md active:translate-y-0;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-full border border-border px-7 py-3.5 text-sm font-semibold tracking-tight text-foreground backdrop-blur-sm transition-all duration-200 active:scale-[0.99];
+    background-color: color-mix(in srgb, var(--surface) 88%, transparent);
+  }
+
+  .btn-secondary:hover {
+    border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+    background-color: color-mix(in srgb, var(--accent) 7%, var(--surface));
+  }
 }
 
 @layer utilities {
+  .section-y {
+    @apply py-24 sm:py-32;
+  }
+
   .text-balance {
     text-wrap: balance;
+  }
+
+  .hero-gradient {
+    background:
+      radial-gradient(
+        ellipse 90% 55% at 50% -25%,
+        color-mix(in srgb, var(--accent-muted) 22%, transparent),
+        transparent 55%
+      ),
+      radial-gradient(
+        ellipse 50% 45% at 100% 0%,
+        color-mix(in srgb, var(--accent) 12%, transparent),
+        transparent 50%
+      );
+  }
+
+  .dark .hero-gradient {
+    background:
+      radial-gradient(
+        ellipse 90% 55% at 50% -25%,
+        color-mix(in srgb, var(--accent-muted) 18%, transparent),
+        transparent 55%
+      ),
+      radial-gradient(
+        ellipse 50% 40% at 100% 5%,
+        color-mix(in srgb, var(--accent) 14%, transparent),
+        transparent 45%
+      );
+  }
+
+  .hero-grid {
+    background-image:
+      linear-gradient(to right, rgb(0 0 0 / 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(0 0 0 / 0.04) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 85% 70% at 50% 40%, black 20%, transparent 70%);
+    -webkit-mask-image: radial-gradient(
+      ellipse 85% 70% at 50% 40%,
+      black 20%,
+      transparent 70%
+    );
+  }
+
+  .dark .hero-grid {
+    background-image:
+      linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px);
   }
 }

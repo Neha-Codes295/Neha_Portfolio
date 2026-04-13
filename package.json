@@ -2,6 +2,11 @@
   "name": "neha-portfolio",
   "version": "0.1.0",
   "private": true,
+  "description": "Neha's portfolio — Next.js, TypeScript, Tailwind, Framer Motion",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Neha-Codes295/Neha_Portfolio.git"
+  },
   "scripts": {
     "clean": "node -e \"require('fs').rmSync('.next',{recursive:true,force:true})\"",
     "dev": "next dev",
